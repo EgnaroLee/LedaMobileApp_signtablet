@@ -3,6 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:tablet_app_9/singscreen/sign_screen_6.dart';
 
+final skyblue = 0x99add8e6;
+
 class ThemeScreen6 extends StatefulWidget {
   const ThemeScreen6({super.key});
 
@@ -22,10 +24,23 @@ class _MyWidgetState extends State<ThemeScreen6> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0x99D2F3FF),
-        centerTitle: true,
-        title: const Text('6번 테마'),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(120),
+          child: Center(
+            child: AppBar(
+              backgroundColor: Color(skyblue),
+              flexibleSpace: Center(
+                child: Container(
+                  child: Text('6번 테마',
+                    style: TextStyle(
+                        fontSize: 46,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                    ),textAlign: TextAlign.center,),
+                ),
+              ),
+            ),
+          )
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

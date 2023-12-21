@@ -14,6 +14,7 @@ import 'package:tablet_app_9/themescreen/theme_screen_6.dart';
 import 'package:tablet_app_9/themescreen/theme_screen_7.dart';
 import 'package:tablet_app_9/themescreen/theme_screen_8.dart';
 
+final skyblue = 0x99add8e6;
 
 Future<void> main() async {
   runApp(const MyApp());
@@ -77,23 +78,27 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Color(0x9987CEFA),
-        elevation: 0,
-        title: const Text("Leda Escape"),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.menu),
-          ),
-        ],
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(150),
+          child:  Center(
+            child:Container(
+              child: AppBar(
+                //centerTitle: true,
+                  automaticallyImplyLeading: false, // 좌측 탭에 뒤로가기 버튼 삭제
+                  backgroundColor: Color(skyblue),
+                  flexibleSpace: Center(
+                    child: Container(
+                          margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Image.asset("images/logo.png"),
+
+                    ),
+                  )
+
+              ),
+            ),
+          )
       ),
-      drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [ListTile()],
-          )),
+
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -108,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     top: 10,
                   ),
                   width: 800,
-                  height: 400,
+                  height: 300,
                   color: const Color(0x99FAFAD2),
                   child: const Text(
                     "레다게임즈",

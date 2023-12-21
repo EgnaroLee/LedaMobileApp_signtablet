@@ -10,6 +10,7 @@ class ThemeScreen3 extends StatefulWidget {
   State<ThemeScreen3> createState() => _MyWidgetState();
 }
 
+final skyblue = 0x99add8e6;
 class _MyWidgetState extends State<ThemeScreen3> {
   CarouselController carouselController = CarouselController();
 
@@ -22,10 +23,23 @@ class _MyWidgetState extends State<ThemeScreen3> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0x99D2F3FF),
-        centerTitle: true,
-        title: const Text('3번 테마'),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(120),
+          child: Center(
+            child: AppBar(
+              backgroundColor: Color(skyblue),
+              flexibleSpace: Center(
+                child: Container(
+                  child: Text('3번 테마',
+                    style: TextStyle(
+                        fontSize: 46,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                    ),textAlign: TextAlign.center,),
+                ),
+              ),
+            ),
+          )
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mysql_client/mysql_client.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tablet_app_9/singscreen/sign_complete_screen.dart';
+
+final skyblue = 0x99add8e6;
+final blue1 = 0x99ADD8E6;
 
 class SignScreen_2 extends StatefulWidget {
   const SignScreen_2({super.key, required this.title});
@@ -14,26 +14,26 @@ class SignScreen_2 extends StatefulWidget {
   State<SignScreen_2> createState() => _SignScreenState();
 }
 
-enum Agree { yes, no }
+
 
 class _SignScreenState extends State<SignScreen_2> {
-  TextEditingController _username1 = TextEditingController();
-  TextEditingController _username2 = TextEditingController();
-  TextEditingController _username3 = TextEditingController();
-  TextEditingController _username4 = TextEditingController();
-  TextEditingController _username5 = TextEditingController();
-  TextEditingController _userpnum1 = TextEditingController();
-  TextEditingController _userpnum2 = TextEditingController();
-  TextEditingController _userpnum3 = TextEditingController();
-  TextEditingController _userpnum4 = TextEditingController();
-  TextEditingController _userpnum5 = TextEditingController();
+  TextEditingController _username1 = TextEditingController(text: '');
+  TextEditingController _username2 = TextEditingController(text: '');
+  TextEditingController _username3 = TextEditingController(text: '');
+  TextEditingController _username4 = TextEditingController(text: '');
+  TextEditingController _username5 = TextEditingController(text: '');
+  TextEditingController _userpnum1 = TextEditingController(text: '');
+  TextEditingController _userpnum2 = TextEditingController(text: '');
+  TextEditingController _userpnum3 = TextEditingController(text: '');
+  TextEditingController _userpnum4 = TextEditingController(text: '');
+  TextEditingController _userpnum5 = TextEditingController(text: '');
 
-  Agree? agree_1 = Agree.no;
-  Agree? agree_2 = Agree.no;
-  Agree? agree_3 = Agree.no;
-  Agree? agree_4 = Agree.no;
-  Agree? agree_5 = Agree.no;
 
+  bool _isCheckYes_1 = false;
+  bool _isCheckYes_2 = false;
+  bool _isCheckYes_3 = false;
+  bool _isCheckYes_4 = false;
+  bool _isCheckYes_5 = false;
 
   @override
   void dispose() {
@@ -54,15 +54,22 @@ class _SignScreenState extends State<SignScreen_2> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(90),
-          child: AppBar(
-            backgroundColor: Color(0x99E8C6FF),
-            centerTitle: true,
-            title: const Text(
-              "서약서",
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-            ),
-          ),
+            preferredSize: Size.fromHeight(120),
+            child: Center(
+              child: AppBar(
+                backgroundColor: Color(skyblue),
+                flexibleSpace: Center(
+                  child: Container(
+                    child: Text('서약서',
+                      style: TextStyle(
+                          fontSize: 46,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white
+                      ),textAlign: TextAlign.center,),
+                  ),
+                ),
+              ),
+            )
         ),
         body: SingleChildScrollView(
           // 키보드 올라온 경우 스크롤 가능
@@ -71,485 +78,494 @@ class _SignScreenState extends State<SignScreen_2> {
             children: [
               Row(
                 children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(25, 50, 0, 0),
-                    width: 1230,
-                    height: 200,
-                    color: Color(0x99FAFAD2),
-                    child: Text(
-                      "서약서 내용",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(40, 30, 0, 0),
-                    width: 100,
-                    height: 25,
-                    child: Text(
-                      "이름",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(310, 30, 0, 0),
-                    width: 100,
-                    height: 25,
-                    child: Text(
-                      "연락처",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(310, 30, 0, 0),
-                    width: 100,
-                    height: 25,
-                    child: Text(
-                      "동의",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
+                  Center(
+                    child:  Container(
+                      margin: EdgeInsets.fromLTRB(20, 30, 0, 0),
+                      width: 1240,
+                      height: 200,
+                      color: Color(skyblue),
+                      child: Text(
+                        "서약서 내용",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   )
                 ],
               ),
               Row(
-                // 입력 1번째줄
                 children: [
-                  Container(
-                      margin: EdgeInsets.fromLTRB(40, 10, 0, 0),
-                      width: 250,
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          child: TextField(
-                            controller: _username1,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(
-                                  r'[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|ᆞ|ᆢ|ㆍ|ᆢ|ᄀᆞ|ᄂᆞ|ᄃᆞ|ᄅᆞ|ᄆᆞ|ᄇᆞ|ᄉᆞ|ᄋᆞ|ᄌᆞ|ᄎᆞ|ᄏᆞ|ᄐᆞ|ᄑᆞ|ᄒᆞ]'))
+                  Center(
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 1240,
+                          height: 140,
+                          color: Color(skyblue),
+                          margin: EdgeInsets.fromLTRB(20, 30, 0, 0),
+
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 70, right: 150, bottom: 30),
+
+                                    child: Container(
+
+                                      height: 70,
+                                      color: Color(blue1),
+                                      child: Center(
+                                        child: Text(
+                                          "이름",
+                                          style: TextStyle(
+                                            fontSize: 27,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  )),
+                              Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 70, right: 150, bottom: 30),
+                                    child: Container(
+                                      height: 70,
+                                      color: Color(blue1),
+                                      child: Center(
+                                        child: Text(
+                                          "연락처",
+                                          style: TextStyle(
+                                            fontSize: 27,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  )),
+                              Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 70, right: 150, bottom: 30),
+                                    child: Container(
+                                      height: 70,
+                                      color: Color(blue1),
+                                      child: Center(
+                                        child: Text(
+                                          "동의",
+                                          style: TextStyle(
+                                            fontSize: 27,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ))
                             ],
-                            decoration: InputDecoration(
-                              hintText: '이름',
-                            ),
-                            style: TextStyle(fontSize: 20),
-                            onChanged: (text) {
-                              setState(() {});
-                            },
                           ),
-                        ),
-                      )),
-                  Container(
-                      margin: EdgeInsets.fromLTRB(150, 10, 0, 0),
-                      width: 300,
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          child: TextField(
-                            controller: _userpnum1,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly, //숫자만 입력
-                              LengthLimitingTextInputFormatter(11),
-                            ],
-                            decoration: InputDecoration(
-                              hintText: '연락처',
-                            ),
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      )),
-                  Container(
-                    child: Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
-                        child: ListTile(
-                          title: const Text('동의'),
-                          leading: Radio<Agree>(
-                            value: Agree.yes,
-                            groupValue: agree_1,
-                            onChanged: (Agree? value) {
-                              setState(() {
-                                agree_1 = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
+                        )
+                      ],
                     ),
-                  ),
-                  Container(
-                    child: Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        child: ListTile(
-                          title: const Text('동의 안함'),
-                          leading: Radio<Agree>(
-                            value: Agree.no,
-                            groupValue: agree_1,
-                            onChanged: (Agree? groupValue) {
-                              setState(() {
-                                agree_1 = groupValue;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  )
                 ],
               ),
-              Row(
-                // 입력 2번째 줄
+              Column(
                 children: [
-                  Container(
-                      margin: EdgeInsets.fromLTRB(40, 0, 0, 0),
-                      width: 250,
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          child: TextField(
-                            controller: _username2,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(
-                                  r'[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|ᆞ|ᆢ|ㆍ|ᆢ|ᄀᆞ|ᄂᆞ|ᄃᆞ|ᄅᆞ|ᄆᆞ|ᄇᆞ|ᄉᆞ|ᄋᆞ|ᄌᆞ|ᄎᆞ|ᄏᆞ|ᄐᆞ|ᄑᆞ|ᄒᆞ]'))
-                            ],
-                            decoration: InputDecoration(
-                              hintText: '이름',
-                            ),
-                            style: TextStyle(fontSize: 20),
-                          ),
+                  Center(
+                    // 입력 1번째줄
+                    child: Column(
+                      children: [
+                        Container(
+                            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            width: 1240,
+                            height: 90,
+                            color: Color(skyblue),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                      padding: const EdgeInsets.only(left: 50, right: 70, bottom: 60),
+                                      child: Container(
+                                        child: TextField(
+                                          controller: _username1,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.allow(RegExp(
+                                                r'[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|ᆞ|ᆢ|ㆍ|ᆢ|ᄀᆞ|ᄂᆞ|ᄃᆞ|ᄅᆞ|ᄆᆞ|ᄇᆞ|ᄉᆞ|ᄋᆞ|ᄌᆞ|ᄎᆞ|ᄏᆞ|ᄐᆞ|ᄑᆞ|ᄒᆞ]'))
+                                          ],
+                                          decoration: InputDecoration(
+                                            hintText: '이름',
+                                          ),
+                                          style: TextStyle(fontSize: 20),
+                                          onChanged: (text) {
+                                            setState(() {});
+                                          },
+                                        ),
+                                      )
+                                  ),
+                                ),
+                                Expanded(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(left: 50, right: 70, bottom: 60),
+                                      child: TextField(
+                                        controller: _userpnum1,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.digitsOnly, //숫자만 입력
+                                          LengthLimitingTextInputFormatter(11),
+                                        ],
+                                        decoration: InputDecoration(
+                                          hintText: '연락처',
+                                        ),
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    )),
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 80, right: 70, bottom: 60),
+                                    child: Row(
+                                      children: [
+                                        Checkbox(value: _isCheckYes_1,
+                                          onChanged: (value){
+                                            setState(() {
+                                              _isCheckYes_1 = value!;
+                                            });
+                                          },
+                                        ),
+                                        Text("동의합니다",
+                                          style: TextStyle(
+                                              fontSize: 23
+                                          ),)
+                                      ],
+                                    ),
+
+                                  ),
+                                )
+
+                              ],
+                            )
                         ),
-                      )),
-                  Container(
-                      margin: EdgeInsets.fromLTRB(150, 0, 0, 0),
-                      width: 300,
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          child: TextField(
-                            controller: _userpnum2,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly, //숫자만 입력
-                              LengthLimitingTextInputFormatter(11),
-                            ],
-                            decoration: InputDecoration(
-                              hintText: '연락처',
-                            ),
-                            style: TextStyle(fontSize: 20),
-                          ),
+
+
+                      ],
+                    ),
+
+                  ),
+
+                  // 2번째 줄
+                  Center(
+                    child: Column(
+                      children: [
+                        Container(
+                            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            width: 1240,
+                            height: 90,
+                            color: Color(skyblue),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 50, right: 70, bottom: 60),
+                                    child: TextField(
+                                      controller: _username2,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(RegExp(
+                                            r'[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|ᆞ|ᆢ|ㆍ|ᆢ|ᄀᆞ|ᄂᆞ|ᄃᆞ|ᄅᆞ|ᄆᆞ|ᄇᆞ|ᄉᆞ|ᄋᆞ|ᄌᆞ|ᄎᆞ|ᄏᆞ|ᄐᆞ|ᄑᆞ|ᄒᆞ]'))
+                                      ],
+                                      decoration: InputDecoration(
+                                        hintText: '이름',
+                                      ),
+                                      style: TextStyle(fontSize: 20),
+                                      onChanged: (text) {
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(left: 50, right: 70, bottom: 60),
+                                      child: TextField(
+                                        controller: _userpnum2,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.digitsOnly, //숫자만 입력
+                                          LengthLimitingTextInputFormatter(11),
+                                        ],
+                                        decoration: InputDecoration(
+                                          hintText: '연락처',
+                                        ),
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    )),
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 80, right: 70, bottom: 60),
+                                    child: Row(
+                                      children: [
+                                        Checkbox(value: _isCheckYes_2,
+                                          onChanged: (value){
+                                            setState(() {
+                                              _isCheckYes_2 = value!;
+                                            });
+                                          },
+                                        ),
+                                        Text("동의합니다",
+                                          style: TextStyle(
+                                              fontSize: 23
+                                          ),)
+                                      ],
+                                    ),
+
+                                  ),
+                                )
+
+                              ],
+                            )
                         ),
-                      )),
-                  Container(
-                    child: Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
-                        child: ListTile(
-                          title: const Text('동의'),
-                          leading: Radio<Agree>(
-                            value: Agree.yes,
-                            groupValue: agree_2,
-                            onChanged: (Agree? groupValue) {
-                              setState(() {
-                                agree_2 = groupValue;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
+
+
+                      ],
                     ),
                   ),
-                  Container(
-                    child: Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        child: ListTile(
-                          title: const Text('동의 안함'),
-                          leading: Radio<Agree>(
-                            value: Agree.no,
-                            groupValue: agree_2,
-                            onChanged: (Agree? value) {
-                              setState(() {
-                                agree_2 = value;
-                              });
-                            },
-                          ),
+
+                  //3번째 줄
+                  Center(
+                    child: Column(
+                      children: [
+                        Container(
+                            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            width: 1240,
+                            height: 90,
+                            color: Color(skyblue),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 50, right: 70, bottom: 60),
+                                    child: TextField(
+                                      controller: _username3,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(RegExp(
+                                            r'[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|ᆞ|ᆢ|ㆍ|ᆢ|ᄀᆞ|ᄂᆞ|ᄃᆞ|ᄅᆞ|ᄆᆞ|ᄇᆞ|ᄉᆞ|ᄋᆞ|ᄌᆞ|ᄎᆞ|ᄏᆞ|ᄐᆞ|ᄑᆞ|ᄒᆞ]'))
+                                      ],
+                                      decoration: InputDecoration(
+                                        hintText: '이름',
+                                      ),
+                                      style: TextStyle(fontSize: 20),
+                                      onChanged: (text) {
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(left: 50, right: 70, bottom: 60),
+                                      child: TextField(
+                                        controller: _userpnum3,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.digitsOnly, //숫자만 입력
+                                          LengthLimitingTextInputFormatter(11),
+                                        ],
+                                        decoration: InputDecoration(
+                                          hintText: '연락처',
+                                        ),
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    )),
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 80, right: 70, bottom: 60),
+                                    child: Row(
+                                      children: [
+                                        Checkbox(value: _isCheckYes_3,
+                                          onChanged: (value){
+                                            setState(() {
+                                              _isCheckYes_3 = value!;
+                                            });
+                                          },
+                                        ),
+                                        Text("동의합니다",
+                                          style: TextStyle(
+                                              fontSize: 23
+                                          ),)
+                                      ],
+                                    ),
+
+                                  ),
+                                )
+                              ],
+                            )
                         ),
-                      ),
+                      ],
                     ),
                   ),
+
+                  // 4번째 줄
+                  Center(
+                    child: Column(
+                      children: [
+                        Container(
+                            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            width: 1240,
+                            height: 90,
+                            color: Color(skyblue),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 50, right: 70, bottom: 60),
+                                    child: TextField(
+                                      controller: _username4,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(RegExp(
+                                            r'[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|ᆞ|ᆢ|ㆍ|ᆢ|ᄀᆞ|ᄂᆞ|ᄃᆞ|ᄅᆞ|ᄆᆞ|ᄇᆞ|ᄉᆞ|ᄋᆞ|ᄌᆞ|ᄎᆞ|ᄏᆞ|ᄐᆞ|ᄑᆞ|ᄒᆞ]'))
+                                      ],
+                                      decoration: InputDecoration(
+                                        hintText: '이름',
+                                      ),
+                                      style: TextStyle(fontSize: 20),
+                                      onChanged: (text) {
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(left: 50, right: 70, bottom: 60),
+                                      child: TextField(
+                                        controller: _userpnum4,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.digitsOnly, //숫자만 입력
+                                          LengthLimitingTextInputFormatter(11),
+                                        ],
+                                        decoration: InputDecoration(
+                                          hintText: '연락처',
+                                        ),
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    )),
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 80, right: 70, bottom: 60),
+                                    child: Row(
+                                      children: [
+                                        Checkbox(value: _isCheckYes_4,
+                                          onChanged: (value){
+                                            setState(() {
+                                              _isCheckYes_4 = value!;
+                                            });
+                                          },
+                                        ),
+                                        Text("동의합니다",
+                                          style: TextStyle(
+                                              fontSize: 23
+                                          ),)
+                                      ],
+                                    ),
+
+                                  ),
+                                )
+
+                              ],
+                            )
+                        ),
+
+
+                      ],
+                    ),
+                  ),
+                  Center(
+                    child: Column(
+                      children: [
+                        Container(
+                            margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            width: 1240,
+                            height: 90,
+                            color: Color(skyblue),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 50, right: 70, bottom: 60),
+                                    child: TextField(
+                                      controller: _username5,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.allow(RegExp(
+                                            r'[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|ᆞ|ᆢ|ㆍ|ᆢ|ᄀᆞ|ᄂᆞ|ᄃᆞ|ᄅᆞ|ᄆᆞ|ᄇᆞ|ᄉᆞ|ᄋᆞ|ᄌᆞ|ᄎᆞ|ᄏᆞ|ᄐᆞ|ᄑᆞ|ᄒᆞ]'))
+                                      ],
+                                      decoration: InputDecoration(
+                                        hintText: '이름',
+                                      ),
+                                      style: TextStyle(fontSize: 20),
+                                      onChanged: (text) {
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                    child: Container(
+                                      padding: const EdgeInsets.only(left: 50, right: 70, bottom: 60),
+                                      child: TextField(
+                                        controller: _userpnum5,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.digitsOnly, //숫자만 입력
+                                          LengthLimitingTextInputFormatter(11),
+                                        ],
+                                        decoration: InputDecoration(
+                                          hintText: '연락처',
+                                        ),
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    )),
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 80, right: 70, bottom: 60),
+                                    child: Row(
+                                      children: [
+                                        Checkbox(value: _isCheckYes_5,
+                                          onChanged: (value){
+                                            setState(() {
+                                              _isCheckYes_5 = value!;
+                                            });
+                                          },
+                                        ),
+                                        Text("동의합니다",
+                                          style: TextStyle(
+                                              fontSize: 23
+                                          ),)
+                                      ],
+                                    ),
+
+                                  ),
+                                )
+
+                              ],
+                            )
+                        ),
+
+
+                      ],
+                    ),
+                  )
+
                 ],
               ),
-              Row(
-                // 입력 3번째 줄
-                children: [
-                  Container(
-                      margin: EdgeInsets.fromLTRB(40, 0, 0, 0),
-                      width: 250,
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          child: TextField(
-                            controller: _username3,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(
-                                  r'[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|ᆞ|ᆢ|ㆍ|ᆢ|ᄀᆞ|ᄂᆞ|ᄃᆞ|ᄅᆞ|ᄆᆞ|ᄇᆞ|ᄉᆞ|ᄋᆞ|ᄌᆞ|ᄎᆞ|ᄏᆞ|ᄐᆞ|ᄑᆞ|ᄒᆞ]'))
-                            ],
-                            decoration: InputDecoration(
-                              hintText: '이름',
-                            ),
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      )),
-                  Container(
-                      margin: EdgeInsets.fromLTRB(150, 0, 0, 0),
-                      width: 300,
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          child: TextField(
-                            controller: _userpnum3,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly, //숫자만 입력
-                              LengthLimitingTextInputFormatter(11),
-                            ],
-                            decoration: InputDecoration(
-                              hintText: '연락처',
-                            ),
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      )),
-                  Container(
-                    child: Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
-                        child: ListTile(
-                          title: const Text('동의'),
-                          leading: Radio<Agree>(
-                            value: Agree.yes,
-                            groupValue: agree_3,
-                            onChanged: (Agree? value) {
-                              setState(() {
-                                agree_3 = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        child: ListTile(
-                          title: const Text('동의 안함'),
-                          leading: Radio<Agree>(
-                            value: Agree.no,
-                            groupValue: agree_3,
-                            onChanged: (Agree? value) {
-                              setState(() {
-                                agree_3 = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                //입력 4번째 줄
-                children: [
-                  Container(
-                      margin: EdgeInsets.fromLTRB(40, 0, 0, 0),
-                      width: 250,
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          child: TextField(
-                            controller: _username4,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(
-                                  r'[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|ᆞ|ᆢ|ㆍ|ᆢ|ᄀᆞ|ᄂᆞ|ᄃᆞ|ᄅᆞ|ᄆᆞ|ᄇᆞ|ᄉᆞ|ᄋᆞ|ᄌᆞ|ᄎᆞ|ᄏᆞ|ᄐᆞ|ᄑᆞ|ᄒᆞ]'))
-                            ],
-                            decoration: InputDecoration(
-                              hintText: '이름',
-                            ),
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      )),
-                  Container(
-                      margin: EdgeInsets.fromLTRB(150, 0, 0, 0),
-                      width: 300,
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          child: TextField(
-                            controller: _userpnum4,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly, //숫자만 입력
-                              LengthLimitingTextInputFormatter(11),
-                            ],
-                            decoration: InputDecoration(
-                              hintText: '연락처',
-                            ),
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      )),
-                  Container(
-                    child: Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
-                        child: ListTile(
-                          title: const Text('동의'),
-                          leading: Radio<Agree>(
-                            value: Agree.yes,
-                            groupValue: agree_4,
-                            onChanged: (Agree? value) {
-                              setState(() {
-                                agree_4 = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        child: ListTile(
-                          title: const Text('동의 안함'),
-                          leading: Radio<Agree>(
-                            value: Agree.no,
-                            groupValue: agree_4,
-                            onChanged: (Agree? value) {
-                              setState(() {
-                                agree_4 = value;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                // 입력 5번째 줄
-                children: [
-                  Container(
-                      margin: EdgeInsets.fromLTRB(40, 0, 0, 0),
-                      width: 250,
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          child: TextField(
-                            controller: _username5,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(
-                                  r'[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|ᆞ|ᆢ|ㆍ|ᆢ|ᄀᆞ|ᄂᆞ|ᄃᆞ|ᄅᆞ|ᄆᆞ|ᄇᆞ|ᄉᆞ|ᄋᆞ|ᄌᆞ|ᄎᆞ|ᄏᆞ|ᄐᆞ|ᄑᆞ|ᄒᆞ]'))
-                            ],
-                            decoration: InputDecoration(
-                              hintText: '이름',
-                            ),
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      )),
-                  Container(
-                      margin: EdgeInsets.fromLTRB(150, 0, 0, 0),
-                      width: 300,
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          child: TextField(
-                            controller: _userpnum5,
-                            style: TextStyle(fontSize: 20),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly, //숫자만 입력
-                              LengthLimitingTextInputFormatter(11),
-                            ],
-                            decoration: InputDecoration(
-                              hintText: '연락처',
-                            ),
-                          ),
-                        ),
-                      )),
-                  Container(
-                    child: Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
-                        child: ListTile(
-                          title: const Text('동의'),
-                          leading: Radio<Agree>(
-                            value: Agree.yes,
-                            groupValue: agree_5,
-                            onChanged: (Agree? groupValue) {
-                              setState(() {
-                                agree_5 = groupValue;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Expanded(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        child: ListTile(
-                          title: const Text('동의 안함'),
-                          leading: Radio<Agree>(
-                            value: Agree.no,
-                            groupValue: agree_5,
-                            onChanged: (Agree? groupValue) {
-                              setState(() {
-                                agree_5 = groupValue;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+
+
+
               Row(
                 children: [
                   Expanded(
                       child: Container(
-                        margin: const EdgeInsets.fromLTRB(1050, 50, 50, 0),
-                        height: 70,
+                        margin: const EdgeInsets.fromLTRB(1050, 30, 50, 30),
+                        height: 80,
                         width: 100,
                         decoration: BoxDecoration(
                           color: Colors.black54,
@@ -558,87 +574,417 @@ class _SignScreenState extends State<SignScreen_2> {
                         child: InkWell(
                           onTap: () async {
 
-                            if (_username1.text != null) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SignComplete()),
-                              );
+                            // 1~5번째 줄 이름 칸 중에서 하나라도 입력된 칸이 있는 경우
+                            if (_username1.text != '' || _username2.text != '' || _username3.text != '' || _username4.text != '' || _username5.text != '') {
 
-                              final conn = await dbConnector();
-                              try {
-                                var res = await conn.execute(
-                                  "INSERT INTO userinfo_1 (theme, name, pnum, agreement) VALUES (:theme, :name1, :pnum1, :agree1)",
-                                  {
-                                    "theme": "2번 테마",
-                                    "name1": _username1.text,
-                                    "pnum1": _userpnum1.text,
-                                    "agree1": agree_1.toString()
-                                  },
+                              // 1번째 줄
+                              // 이름 공백
+                              if(_username1.text == '' && _userpnum1.text != ''){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('1번째 줄 이름을 입력해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'),
+                                        )
+                                      ],
+                                    ));
+                              }
+
+                              // 전화번호 공백
+                              else if( _userpnum1.text == '' && _username1.text != ''){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('1번째 줄 전화번호를 입력해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'),
+                                        )
+                                      ],
+                                    ));
+                              }
+
+                              // 동의 버튼 체크
+                              else if(_userpnum1.text != '' && _userpnum1.text != '' && _isCheckYes_1 == false){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('1번째 줄 동의 버튼을 체크해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'))
+                                      ],
+                                    ));
+                              }
+
+                              // 2번째 줄
+                              // 이름 공백
+                              else if(_username2.text == '' && _userpnum2.text != ''){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('2번째 줄 이름을 입력해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'),
+                                        )
+                                      ],
+                                    ));
+                              }
+
+                              // 전화번호 공백
+                              else if( _userpnum2.text == '' && _username2.text != ''){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('2번째 줄 전화번호를 입력해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'),
+                                        )
+                                      ],
+                                    ));
+                              }
+
+                              // 동의 버튼 체크
+                              else if(_userpnum2.text != '' && _userpnum2.text != '' && _isCheckYes_2 == false){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('2번째 줄 동의 버튼을 체크해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'))
+                                      ],
+                                    ));
+                              }
+
+                              // 3번째 줄
+                              // 이름 공백
+                              else if(_username3.text == '' && _userpnum3.text != ''){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('3번째 줄 이름을 입력해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'),
+                                        )
+                                      ],
+                                    ));
+                              }
+
+                              // 전화번호 공백
+                              else if( _userpnum3.text == '' && _username3.text != ''){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('3번째 줄 전화번호를 입력해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'),
+                                        )
+                                      ],
+                                    ));
+                              }
+
+                              // 동의 버튼 체크
+                              else if(_userpnum3.text != '' && _userpnum3.text != '' && _isCheckYes_3 == false){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('3번째 줄 동의 버튼을 체크해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'))
+                                      ],
+                                    ));
+                              }
+
+
+
+                              // 4번째 줄
+                              // 이름이 공백일 경우
+                              else if(_username4.text == '' && _userpnum4.text != ''){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('4번째 줄 이름을 입력해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'),
+                                        )
+                                      ],
+                                    ));
+                              }
+
+                              // 전화번호 공백일 경우
+                              else if( _userpnum4.text == '' && _username4.text != ''){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('4번째 줄 전화번호를 입력해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'),
+                                        )
+                                      ],
+                                    ));
+                              }
+
+                              // 동의 버튼 체크 안한 경우
+                              else if(_userpnum4.text != '' && _userpnum4.text != '' && _isCheckYes_4 == false){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('4번째 줄 동의 버튼을 체크해주세요!',
+                                        style: TextStyle(
+                                          fontSize: 25,
+                                        ),
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'))
+                                      ],
+                                    ));
+                              }
+
+                              // 5번째 줄
+                              // 이름이 공백일 경우
+                              else if(_username5.text == '' && _userpnum5.text != ''){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('5번째 줄 이름을 입력해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'),
+                                        )
+                                      ],
+                                    ));
+                              }
+
+                              // 전화번호 공백일 경우
+                              else if( _userpnum5.text == '' && _username5.text != ''){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('5번째 줄 전화번호를 입력해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'),
+                                        )
+                                      ],
+                                    ));
+                              }
+
+                              // 동의 버튼 체크 안한 경우
+                              else if(_userpnum5.text != '' && _userpnum5.text != '' && _isCheckYes_5 == false){
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('5번째 줄 동의 버튼을 체크해주세요!',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                          ),
+                                          textAlign: TextAlign.center
+                                      ),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'))
+                                      ],
+                                    ));
+                              }
+
+
+                              else{
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignComplete()),
                                 );
-                              } catch (e) {
-                                print('Error :$e');
-                              }
 
-                              if (_username2.text != null) {
-                                try {
-                                  var res = await conn.execute(
-                                    "INSERT INTO userinfo_1 (theme, name, pnum, agreement) VALUES (:theme, :name2, :pnum2, :agree2)",
-                                    {
-                                      "theme": "2번 테마",
-                                      "name2": _username2.text,
-                                      "pnum2": _userpnum2.text,
-                                      "agree2": agree_2.toString()
-                                    },
-                                  );
-                                } catch (e) {
-                                  print('Error :$e');
-                                }
-                              }
-                              if (_username3.text != null) {
-                                try {
-                                  var res = await conn.execute(
-                                      "INSERT INTO userinfo_1 (theme, name, pnum, agreement) values (:theme, :name3, :pnum3, :agree3)",
+                                final conn = await dbConnector();
+                                if(_username1.text != '' && _userpnum1.text != '' && _isCheckYes_1 == true){
+                                  try {
+                                    var res = await conn.execute(
+                                      "INSERT INTO userinfo_1 (theme, name, pnum, agreement) VALUES (:theme, :name1, :pnum1, :agree1)",
                                       {
                                         "theme": "2번 테마",
-                                        "name3": _username3.text,
-                                        "pnum3": _userpnum3.text,
-                                        "agree3": agree_3.toString()
-                                      });
-                                } catch (e) {
-                                  print('Error :$e');
+                                        "name1": _username1.text,
+                                        "pnum1": _userpnum1.text,
+                                        "agree1": _isCheckYes_1.toString()
+                                      },
+                                    );
+                                  } catch (e) {
+                                    print('Error :$e');
+                                  }
                                 }
-                              }
-                              if (_username4.text != null) {
-                                try {
-                                  var res = await conn.execute(
-                                      "INSERT INTO userinfo_1 (theme, name, pnum, agreement) values (:theme, :name4, :pnum4, :agree4)",
+
+
+                                if (_username2.text != '' && _userpnum2.text != '' && _isCheckYes_2 == true) {
+
+                                  try {
+                                    var res = await conn.execute(
+                                      "INSERT INTO userinfo_1 (theme, name, pnum, agreement) VALUES (:theme, :name2, :pnum2, :agree2)",
                                       {
                                         "theme": "2번 테마",
-                                        "name4": _username4.text,
-                                        "pnum4": _userpnum4.text,
-                                        "agree4": agree_4.toString()
-                                      });
-                                } catch (e) {
-                                  print('Error :$e');
+                                        "name2": _username2.text,
+                                        "pnum2": _userpnum2.text,
+                                        "agree2": _isCheckYes_2.toString()
+                                      },
+                                    );
+                                  } catch (e) {
+                                    print('Error :$e');
+                                  }
+                                }
+                                if (_username3.text != '' && _userpnum3.text != '' && _isCheckYes_3 == true) {
+                                  try {
+                                    var res = await conn.execute(
+                                        "INSERT INTO userinfo_1 (theme, name, pnum, agreement) values (:theme, :name3, :pnum3, :agree3)",
+                                        {
+                                          "theme": "2번 테마",
+                                          "name3": _username3.text,
+                                          "pnum3": _userpnum3.text,
+                                          "agree3": _isCheckYes_3.toString()
+                                        });
+                                  } catch (e) {
+                                    print('Error :$e');
+                                  }
+                                }
+                                if (_username4.text != '' && _userpnum4.text != '' && _isCheckYes_4 == true) {
+                                  try {
+                                    var res = await conn.execute(
+                                        "INSERT INTO userinfo_1 (theme, name, pnum, agreement) values (:theme, :name4, :pnum4, :agree4)",
+                                        {
+                                          "theme": "2번 테마",
+                                          "name4": _username4.text,
+                                          "pnum4": _userpnum4.text,
+                                          "agree4": _isCheckYes_4.toString()
+                                        });
+                                  } catch (e) {
+                                    print('Error :$e');
+                                  }
+                                }
+
+
+                                if(_username5.text != '' && _userpnum5.text != '' && _isCheckYes_5 == true){
+                                  try {
+                                    var res = await conn.execute(
+                                        "INSERT INTO userinfo_1 (theme, name, pnum, agreement) values (:theme, :name5, :pnum5, :agree5)",
+                                        {
+                                          "theme": "2번 테마",
+                                          "name5": _username5.text,
+                                          "pnum5": _userpnum5.text,
+                                          "agree5": _isCheckYes_5.toString()
+                                        });
+                                  } catch (e) {
+                                    print('Error :$e');
+                                  } finally {
+                                    await conn.close();
+                                  }
+
                                 }
                               }
-                              if (_username5.text != null) {
-                                try {
-                                  var res = await conn.execute(
-                                      "INSERT INTO userinfo_1 (theme, name, pnum, agreement) values (:theme, :name5, :pnum5, :agree5)",
-                                      {
-                                        "theme": "2번 테마",
-                                        "name5": _username5.text,
-                                        "pnum5": _userpnum5.text,
-                                        "agree5": agree_5.toString()
-                                      });
-                                } catch (e) {
-                                  print('Error :$e');
-                                } finally {
-                                  await conn.close();
-                                }
-                              }
+                            }
+                            else{
+                              showDialog(context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text(''),
+                                    content: Text('정보를 입력해주세요!',
+                                      style: TextStyle(
+                                        fontSize: 25,
+                                      ),textAlign: TextAlign.center,
+                                    ),
+                                    actions: [
+                                      TextButton(onPressed: (){
+                                        Navigator.pop(context);
+                                      }, child: const Text('확인'),
+                                      )
+                                    ],
+                                  ));
                             }
                           },
                           child: Column(

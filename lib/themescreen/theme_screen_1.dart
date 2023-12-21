@@ -25,10 +25,23 @@ class _MyWidgetState extends State<ThemeScreen1> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0x99D2F3FF),
-        centerTitle: true,
-        title: const Text('1번 테마'),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(120),
+          child: Center(
+            child: AppBar(
+              backgroundColor: Color(skyblue),
+              flexibleSpace: Center(
+                child: Container(
+                  child: Text('1번 테마',
+                    style: TextStyle(
+                        fontSize: 46,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                    ),textAlign: TextAlign.center,),
+                ),
+              ),
+            ),
+          )
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -163,8 +176,7 @@ class _MyWidgetState extends State<ThemeScreen1> {
               )),
           Expanded(
             child: Container(
-                margin: const EdgeInsets.fromLTRB(850, 80, 0, 40),
-                height: 50,
+                margin: const EdgeInsets.fromLTRB(850, 0, 0, 30),
                 width: 150,
                 decoration: BoxDecoration(
                   color: Colors.black54, // 버튼 색상

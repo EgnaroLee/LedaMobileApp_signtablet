@@ -1,23 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mysql_client/mysql_client.dart';
 import 'package:tablet_app_9/singscreen/sign_complete_screen.dart';
-
-// mysql 접속 설정
-Future<MySQLConnection> dbConnector() async {
-  print("Connecting to mysql server...");
-
-  final conn = await MySQLConnection.createConnection(
-      host: 'database-1.c3h8wpy3mw6o.us-east-1.rds.amazonaws.com',
-      port: 3306,
-      userName: 'admin',
-      password: 'a1234567',
-      databaseName: 'mobileappDB');
-  await conn.connect();
-  print("Connected");
-
-  return conn;
-}
 
 class SignScreen_6 extends StatefulWidget {
   const SignScreen_6({super.key, required this.title});
@@ -28,21 +11,29 @@ class SignScreen_6 extends StatefulWidget {
   State<SignScreen_6> createState() => _SignScreenState();
 }
 
-class _SignScreenState extends State<SignScreen_6> {
 
-  TextEditingController _username1 = TextEditingController();
-  TextEditingController _username2 = TextEditingController();
-  TextEditingController _username3 = TextEditingController();
-  TextEditingController _username4 = TextEditingController();
-  TextEditingController _username5 = TextEditingController();
-  TextEditingController _userpnum1 = TextEditingController();
-  TextEditingController _userpnum2 = TextEditingController();
-  TextEditingController _userpnum3 = TextEditingController();
-  TextEditingController _userpnum4 = TextEditingController();
-  TextEditingController _userpnum5 = TextEditingController();
+
+class _SignScreenState extends State<SignScreen_6> {
+  TextEditingController _username1 = TextEditingController(text: '');
+  TextEditingController _username2 = TextEditingController(text: '');
+  TextEditingController _username3 = TextEditingController(text: '');
+  TextEditingController _username4 = TextEditingController(text: '');
+  TextEditingController _username5 = TextEditingController(text: '');
+  TextEditingController _userpnum1 = TextEditingController(text: '');
+  TextEditingController _userpnum2 = TextEditingController(text: '');
+  TextEditingController _userpnum3 = TextEditingController(text: '');
+  TextEditingController _userpnum4 = TextEditingController(text: '');
+  TextEditingController _userpnum5 = TextEditingController(text: '');
+
+
+  bool _isCheckYes_1 = false;
+  bool _isCheckYes_2 = false;
+  bool _isCheckYes_3 = false;
+  bool _isCheckYes_4 = false;
+  bool _isCheckYes_5 = false;
 
   @override
-  void dispose(){
+  void dispose() {
     _username1.dispose();
     _username2.dispose();
     _username3.dispose();
@@ -71,7 +62,6 @@ class _SignScreenState extends State<SignScreen_6> {
           ),
         ),
         body: SingleChildScrollView(
-
           // 키보드 올라온 경우 스크롤 가능
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -153,13 +143,10 @@ class _SignScreenState extends State<SignScreen_6> {
                               hintText: '이름',
                             ),
                             style: TextStyle(fontSize: 20),
-                            onChanged: (text){
-                              setState(() {
-
-                              });
+                            onChanged: (text) {
+                              setState(() {});
                             },
                           ),
-
                         ),
                       )),
                   Container(
@@ -182,6 +169,28 @@ class _SignScreenState extends State<SignScreen_6> {
                           ),
                         ),
                       )),
+                  Container(
+                    child: Expanded(
+                      child: Container(
+                          margin: EdgeInsets.fromLTRB(100, 0, 0, 0),
+                          child: Row(
+                            children: [
+                              Checkbox(value: _isCheckYes_1,
+                                onChanged: (value){
+                                  setState(() {
+                                    _isCheckYes_1 = value!;
+                                  });
+                                },
+                              ),
+                              Text("동의합니다",
+                                style: TextStyle(
+                                    fontSize: 23
+                                ),)
+                            ],
+                          )
+                      ),
+                    ),
+                  ),
                 ],
               ),
               Row(
@@ -227,6 +236,28 @@ class _SignScreenState extends State<SignScreen_6> {
                           ),
                         ),
                       )),
+                  Container(
+                    child: Expanded(
+                      child: Container(
+                          margin: EdgeInsets.fromLTRB(100, 0, 0, 0),
+                          child: Row(
+                            children: [
+                              Checkbox(value: _isCheckYes_2,
+                                onChanged: (value){
+                                  setState(() {
+                                    _isCheckYes_2 = value!;
+                                  });
+                                },
+                              ),
+                              Text("동의합니다",
+                                style: TextStyle(
+                                    fontSize: 23
+                                ),)
+                            ],
+                          )
+                      ),
+                    ),
+                  ),
                 ],
               ),
               Row(
@@ -272,6 +303,29 @@ class _SignScreenState extends State<SignScreen_6> {
                           ),
                         ),
                       )),
+                  Container(
+                    child: Expanded(
+                      child: Container(
+                          margin: EdgeInsets.fromLTRB(100, 0, 0, 0),
+                          child: Row(
+                            children: [
+                              Checkbox(value: _isCheckYes_3,
+                                onChanged: (value){
+                                  setState(() {
+                                    _isCheckYes_3 = value!;
+                                  });
+                                },
+                              ),
+                              Text("동의합니다",
+                                style: TextStyle(
+                                    fontSize: 23
+                                ),)
+                            ],
+                          )
+                      ),
+                    ),
+                  ),
+
                 ],
               ),
               Row(
@@ -317,6 +371,28 @@ class _SignScreenState extends State<SignScreen_6> {
                           ),
                         ),
                       )),
+                  Container(
+                    child: Expanded(
+                      child: Container(
+                          margin: EdgeInsets.fromLTRB(100, 0, 0, 0),
+                          child: Row(
+                            children: [
+                              Checkbox(value: _isCheckYes_4,
+                                onChanged: (value){
+                                  setState(() {
+                                    _isCheckYes_4 = value!;
+                                  });
+                                },
+                              ),
+                              Text("동의합니다",
+                                style: TextStyle(
+                                    fontSize: 23
+                                ),)
+                            ],
+                          )
+                      ),
+                    ),
+                  ),
                 ],
               ),
               Row(
@@ -330,11 +406,14 @@ class _SignScreenState extends State<SignScreen_6> {
                         padding: const EdgeInsets.all(10),
                         child: Container(
                           child: TextField(
+
                             controller: _username5,
+
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(RegExp(
                                   r'[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|ᆞ|ᆢ|ㆍ|ᆢ|ᄀᆞ|ᄂᆞ|ᄃᆞ|ᄅᆞ|ᄆᆞ|ᄇᆞ|ᄉᆞ|ᄋᆞ|ᄌᆞ|ᄎᆞ|ᄏᆞ|ᄐᆞ|ᄑᆞ|ᄒᆞ]'))
                             ],
+
                             decoration: InputDecoration(
                               hintText: '이름',
                             ),
@@ -362,6 +441,30 @@ class _SignScreenState extends State<SignScreen_6> {
                           ),
                         ),
                       )),
+                  Container(
+                    child: Expanded(
+                      child: Container(
+                          margin: EdgeInsets.fromLTRB(100, 0, 0, 0),
+                          child: Row(
+                            children: [
+                              Checkbox(value: _isCheckYes_5,
+                                onChanged: (value){
+                                  setState(() {
+                                    _isCheckYes_5 = value!;
+
+                                  });
+                                },
+                              ),
+                              Text("동의합니다",
+                                style: TextStyle(
+                                    fontSize: 23
+                                ),)
+                            ],
+                          )
+                      ),
+                    ),
+                  ),
+
                 ],
               ),
               Row(
@@ -377,98 +480,166 @@ class _SignScreenState extends State<SignScreen_6> {
                         ),
                         child: InkWell(
                           onTap: () async {
-                            final conn = await dbConnector();
-                            //var result =await conn.execute("SELECT * FROM mobileappDB ");
 
+                            if(_username1.text == '' && _userpnum1.text != ''){
+                              showDialog(context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text(''),
+                                    content: Text('이름을 입력해주세요!',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),),
+                                    actions: [
+                                      TextButton(onPressed: (){
+                                        Navigator.pop(context);
+                                      }, child: const Text('확인'),
+                                      )
+                                    ],
+                                  ));
+                            }
 
-                            try {
-                              if(_username1.text != 0){
-                                var res = await conn.execute(
-                                  "INSERT INTO user_info_theme (theme, name, pnum) VALUES (:theme, :name1, :pnum1)",
-                                  {
-                                    "theme": "6번 테마",
-                                    "name1": _username1.text,
-                                    "pnum1": _userpnum1.text
-                                  },
-                                );}
-                            } catch (e) {
-                              print('Error :$e');
+                            else if( _userpnum1.text == '' && _username1.text != ''){
+                              showDialog(context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text(''),
+                                    content: Text('전화번호를 입력해주세요!',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),),
+                                    actions: [
+                                      TextButton(onPressed: (){
+                                        Navigator.pop(context);
+                                      }, child: const Text('확인'),
+                                      )
+                                    ],
+                                  ));
                             }
 
 
-                            try {
-                              if(_username2.text != 0) {
-                                var res = await conn.execute(
-                                    "INSERT INTO user_info_theme (theme, name, pnum) values (:theme, :name2, :pnum2)",
+                            if (_username1.text != '' || _username2.text != '' || _username3.text != '' || _username4.text != '' || _username5.text != '') {
+                              if((_username1.text != '' && _userpnum1.text != '') && _isCheckYes_1 == false){
+
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('동의 버튼을 체크해주세요!',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                        ),),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'),
+                                        )
+                                      ],
+                                    ));
+                              }
+
+                              if((_username2.text != '' && _userpnum2.text != '') && _isCheckYes_2 == false){
+
+                                showDialog(context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(''),
+                                      content: Text('동의 버튼을 체크해주세요!',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                        ),),
+                                      actions: [
+                                        TextButton(onPressed: (){
+                                          Navigator.pop(context);
+                                        }, child: const Text('확인'),
+                                        )
+                                      ],
+                                    ));
+                              }
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignComplete()),
+                              );
+
+                              final conn = await dbConnector();
+                              if(_username1.text != '' && _userpnum1.text != '' && _isCheckYes_1 == true){
+                                try {
+                                  var res = await conn.execute(
+                                    "INSERT INTO userinfo_1 (theme, name, pnum, agreement) VALUES (:theme, :name1, :pnum1, :agree1)",
+                                    {
+                                      "theme": "6번 테마",
+                                      "name1": _username1.text,
+                                      "pnum1": _userpnum1.text,
+                                      "agree1": _isCheckYes_1.toString()
+                                    },
+                                  );
+                                } catch (e) {
+                                  print('Error :$e');
+                                }
+                              }
+
+
+                              if (_username2.text != '' && _userpnum2.text != '' && _isCheckYes_2 == true) {
+
+                                try {
+                                  var res = await conn.execute(
+                                    "INSERT INTO userinfo_1 (theme, name, pnum, agreement) VALUES (:theme, :name2, :pnum2, :agree2)",
                                     {
                                       "theme": "6번 테마",
                                       "name2": _username2.text,
                                       "pnum2": _userpnum2.text,
-
-
-                                    }
-                                );
+                                      "agree2": _isCheckYes_2.toString()
+                                    },
+                                  );
+                                } catch (e) {
+                                  print('Error :$e');
+                                }
                               }
-                            } catch (e) {
-                              print('Error :$e');
-                            }
-
-                            try {
-                              if(_username3.text != 0){
-                                var res = await conn.execute(
-                                    "INSERT INTO user_info_theme (theme, name, pnum) values (:theme, :name3, :pnum3)",
-                                    {
-                                      "theme": "6번 테마",
-                                      "name3": _username3.text,
-                                      "pnum3": _userpnum3.text,
-
-                                    }
-                                );
+                              if (_username3.text != '' && _userpnum3.text != '' && _isCheckYes_3 == true) {
+                                try {
+                                  var res = await conn.execute(
+                                      "INSERT INTO userinfo_1 (theme, name, pnum, agreement) values (:theme, :name3, :pnum3, :agree3)",
+                                      {
+                                        "theme": "6번 테마",
+                                        "name3": _username3.text,
+                                        "pnum3": _userpnum3.text,
+                                        "agree3": _isCheckYes_3.toString()
+                                      });
+                                } catch (e) {
+                                  print('Error :$e');
+                                }
                               }
-                            } catch (e) {
-                              print('Error :$e');
-                            }
-
-                            try {
-                              if(_username4.text != null){
-                                var res = await conn.execute(
-                                    "INSERT INTO user_info_theme (theme, name, pnum) values (:theme, :name4, :pnum4)",
-                                    {
-                                      "theme": "6번 테마",
-                                      "name4": _username4.text,
-                                      "pnum4": _userpnum4.text,
-
-                                    }
-                                );
-                              }
-                            }
-                            catch (e) {
-                              print('Error :$e');
-                            }
-
-                            try {
-                              if(_username5.text != null){
-                                var res = await conn.execute(
-                                    "INSERT INTO user_info_theme (theme, name, pnum) values (:theme, :name5, :pnum5)",
-                                    {
-                                      "theme": "6번 테마",
-                                      "name5": _username5.text,
-                                      "pnum5": _userpnum5.text,
-
-
-                                    }
-                                );
+                              if (_username4.text != '' && _userpnum4.text != '' && _isCheckYes_4 == true) {
+                                try {
+                                  var res = await conn.execute(
+                                      "INSERT INTO userinfo_1 (theme, name, pnum, agreement) values (:theme, :name4, :pnum4, :agree4)",
+                                      {
+                                        "theme": "6번 테마",
+                                        "name4": _username4.text,
+                                        "pnum4": _userpnum4.text,
+                                        "agree4": _isCheckYes_4.toString()
+                                      });
+                                } catch (e) {
+                                  print('Error :$e');
+                                }
                               }
 
-                            } catch (e) {
-                              print('Error :$e');
-                            } finally {
-                              await conn.close();
 
-                              await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignComplete()));
+                              if(_username5.text != '' && _userpnum5.text != '' && _isCheckYes_5 == true){
+                                try {
+                                  var res = await conn.execute(
+                                      "INSERT INTO userinfo_1 (theme, name, pnum, agreement) values (:theme, :name5, :pnum5, :agree5)",
+                                      {
+                                        "theme": "6번 테마",
+                                        "name5": _username5.text,
+                                        "pnum5": _userpnum5.text,
+                                        "agree5": _isCheckYes_5.toString()
+                                      });
+                                } catch (e) {
+                                  print('Error :$e');
+                                } finally {
+                                  await conn.close();
+                                }
+
+                              }
+
                             }
                           },
                           child: Column(
@@ -487,60 +658,9 @@ class _SignScreenState extends State<SignScreen_6> {
                         ),
                       ))
                 ],
-              )
+              ),
             ],
           ),
         ));
   }
-
-/*
-  Future<void> insertUser(String username, int pnum) async {
-    final conn = await dbConnector();
-    var res = await conn.execute("SELECT * FROM mobileappDB ");
-
-    try {
-      res = await conn.execute(
-        "INSERT INTO userinfo (name, pnum) valuse (:name1, :pnum1)",
-        {"name1": _username1, "pnum1": _userpnum1},
-      );
-    } catch (e){
-      print('Error :$e');
-    }try{
-      res = await conn.execute(
-          "INSERT INTO userinfo (name, pnum) valuse (:name2, :pnum2)",
-          {"name2": _username2, "pnum2": _userpnum2}
-      );
-    } catch(e){
-      print('Error :$e');
-    }
-    try{
-      res = await conn.execute(
-        "INSERT INTO userinfo (name, pnum) valuse (:name3, :pnum3)",
-        {"name3": _username3, "pnum3": _userpnum3}
-      );
-    } catch(e) {
-      print('Error :$e');
-    }
-    try{
-      res = await conn.execute(
-          "INSERT INTO userinfo (name, pnum) valuse (:name4, :pnum4)",
-          {"name4": _username4, "pnum4": _userpnum4}
-      );
-    } catch(e) {
-      print('Error :$e');
-    }
-    try{
-      res = await conn.execute(
-          "INSERT INTO userinfo (name, pnum) valuse (:name5, :pnum5)",
-          {"name5": _username5, "pnum5": _userpnum5}
-      );
-    } catch(e) {
-      print('Error :$e');
-    }
-    finally{
-      await conn.close();
-    }
-
-  }
-*/
 }
