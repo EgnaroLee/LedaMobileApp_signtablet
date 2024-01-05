@@ -131,8 +131,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: Container(
                       padding: const EdgeInsets.all(5),
+                      margin: EdgeInsets.only(top: 5),
                       height: 215,
                       width: 150,
+                     // color: Colors.black,
                       child: InkWell(
                         onTap: () {
                           Navigator.push(
@@ -140,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             MaterialPageRoute(builder: (context) => ThemeScreen1()),
                           );
                         },
-                        child: Image.asset("images/a.png"),
+                        child: Image.asset("images/a1.png"),
                       ),
                     )),
 
@@ -157,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             MaterialPageRoute(builder: (context) => ThemeScreen2()),
                           );
                         },
-                        child: Image.asset("images/b.png"),
+                        child: Image.asset("images/b3.png"),
                       ),
                     )),
 
@@ -174,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             MaterialPageRoute(builder: (context) => ThemeScreen3()),
                           );
                         },
-                        child: Image.asset("images/c.png"),
+                        child: Image.asset("images/c3.png"),
                       ),
                     )),
                 //4번 테마
@@ -190,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             MaterialPageRoute(builder: (context) => ThemeScreen4()),
                           );
                         },
-                        child: Image.asset("images/a.png"),
+                        child: Image.asset("images/d3.png"),
                       ),
                     )),
               ],
@@ -201,8 +203,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 //5번 테마
                 Expanded(
                     child: Container(
-                      padding: const EdgeInsets.all(5),
-                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
                       height: 215,
                       width: 150,
                       child: InkWell(
@@ -212,14 +213,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             MaterialPageRoute(builder: (context) => ThemeScreen5()),
                           );
                         },
-                        child: Image.asset("images/b.png"),
+                        child: Image.asset("images/e3.png"),
                       ),
                     )),
 
                 // 6번째 페이지
                 Expanded(
                     child: Container(
-                      padding: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
                       height: 215,
                       width: 150,
                       child: InkWell(
@@ -229,13 +230,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             MaterialPageRoute(builder: (context) => ThemeScreen6()),
                           );
                         },
-                        child: Image.asset("images/c.png"),
+                        child: Image.asset("images/f2.png"),
                       ),
                     )),
 //7번 테마
                 Expanded(
                     child: Container(
-                      padding: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
                       height: 215,
                       width: 150,
                       child: InkWell(
@@ -245,14 +246,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             MaterialPageRoute(builder: (context) => ThemeScreen7()),
                           );
                         },
-                        child: Image.asset("images/a.png"),
+                        child: Image.asset("images/a3.png"),
                       ),
                     )),
 
                 // 8번 테마
                 Expanded(
                     child: Container(
-                      padding: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
                       height: 215,
                       width: 150,
                       child: InkWell(
@@ -262,7 +263,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             MaterialPageRoute(builder: (context) => ThemeScreen8()),
                           );
                         },
-                        child: Image.asset("images/c.png"),
+                        child: Image.asset("images/c3.png"),
                       ),
                     )),
               ],
