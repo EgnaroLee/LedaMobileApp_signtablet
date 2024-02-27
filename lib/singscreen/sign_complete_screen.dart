@@ -25,8 +25,8 @@ Future<MySQLConnection> dbConnector() async {
 class SignComplete extends StatelessWidget {
   const SignComplete( {Key? key}) : super(key: key);
 
-
-  @override
+ 
+  @override 
   Widget build(BuildContext context) {
 
     return Scaffold(
